@@ -1,0 +1,50 @@
+{
+  "name": "TapeAdmin",
+  "slug": "tapeadmin",
+  "categories": [
+    14
+  ],
+  "date_created": "2026-09-19",
+  "type": "ct",
+  "updateable": true,
+  "privileged": false,
+  "architectures": ["amd64"],
+  "documentation": "https://github.com/tofkamp/PASTA#readme",
+  "website": "https://github.com/tofkamp/PASTA",
+  "repository": "https://github.com/tofkamp/PASTA",
+  "logo": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/webp/readmeabook.webp",
+  "description": "TapeAdmin is an assisting service for tape handling with PBS. It tracks tape media leaving and returning to your Proxmox Backup Server tape library, stages exported tapes in the changer's mailslots, and send emails the operator when tapes need to be picked up or are overdue to come back.",
+  "install_methods": [
+    {
+      "type": "default",
+      "script": "ct/tapeadmin.sh",
+      "config_path": "/opt/tapeadmin/config.ini",
+      "resources": {
+        "cpu": 1,
+        "ram": 1000,
+        "hdd": 8,
+        "os": "Debian",
+        "version": "13"
+      }
+    }
+  ],
+  "default_credentials": {
+    "username": null,
+    "password": null
+  },
+  "notes": [
+    {
+      "text": "# create a dedicated user to hold the token
+proxmox-backup-manager user create tape-admin@pbs --email tape-admin@example.com
+
+# create the API token (the secret is only ever shown here -- save it now)
+proxmox-backup-manager user generate-token tape-admin@pbs tape-reader \
+    --comment "Tape administration API token"
+# -> {"tokenid": "tape-admin@pbs!tape-reader", "value": "<TOKEN-SECRET>"}
+
+# grant the token the TapeReader role on /tape
+proxmox-backup-manager acl update /tape TapeReader --auth-id 'tape-admin@pbs!tape-reader'"
+      "type": "info"
+    }
+  ]
+}
