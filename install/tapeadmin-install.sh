@@ -25,9 +25,7 @@ $STD chmod 700 /opt/tapeadmin
 #msg_ok "Installed Dependencies"
 
 msg_info "Setting up Python Environment"
-$STD python3 -m venv /opt/venv
-$STD /opt/venv/bin/pip install --upgrade pip >/dev/null 2>&1
-$STD /opt/venv/bin/pip install --no-cache-dir \
+$STD pip install --break-system-packages
   proxmoxer \
   requests
 msg_ok "Set up Python Environment"
