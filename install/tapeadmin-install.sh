@@ -15,17 +15,16 @@ update_os
 
 #fetch_and_deploy_gh_release "tapeadmin" "https://github.com/tofkamp/PASTA.git" "tarball"
 
-#msg_info "Installing Dependencies"
+msg_info "Installing Dependencies"
 $STD apt install -y python3-pip
 $STD apt install -y git
+msg_ok "Installed Dependencies"
+
+msg_info "Setting up Python Environment"
 $STD mkdir -p /opt/tapeadmin
 $STD git clone https://github.com/tofkamp/PASTA.git /opt/tapeadmin
 $STD chmod 700 /opt/tapeadmin
-#$STD pip install -r requirements.txt --break-system-packages
-#msg_ok "Installed Dependencies"
-
-msg_info "Setting up Python Environment"
-$STD pip install --break-system-packages
+$STD pip install --break-system-packages \
   proxmoxer \
   requests
 msg_ok "Set up Python Environment"
