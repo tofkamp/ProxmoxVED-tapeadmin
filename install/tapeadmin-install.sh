@@ -34,11 +34,10 @@ $STD cp /opt/tapeadmin/config.example.ini /opt/tapeadmin/config.ini
 msg_ok "Configured TapeAdmin"
 
 msg_info "Creating Scheduled Tasks"
-$STD cat <<'EOF' >/etc/cron.d/tapeadmin
-45 7 * * *  cd /opt/tapeadmin && ./tape_admin.py run        >> run.log 2>&1
-0 8   * * *   cd /opt/tapeadmin && ./tape_admin.py check-overdue >> run.log 2>&1
+$STD cat <<'EOF' | crontab -
+45 7 * * *  cd /opt/tapeadmin && /usr/bin/python3 ./tape_admin.py run        >> run.log 2>&1
+0 8   * * *   cd /opt/tapeadmin && /usr/bin/python3 ./tape_admin.py check-overdue >> run.log 2>&1
 EOF
-$STD chmod 644 /etc/cron.d/tapeadmin
 msg_ok "Created Scheduled Tasks"
 
 motd_ssh
