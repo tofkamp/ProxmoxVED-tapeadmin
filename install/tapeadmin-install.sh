@@ -13,10 +13,13 @@ setting_up_container
 network_check
 update_os
 
-fetch_and_deploy_gh_release "tapeadmin" "https://github.com/tofkamp/PASTA" "tarball"
+fetch_and_deploy_gh_release "tapeadmin" "https://github.com/tofkamp/PASTA.git" "tarball"
 
 #msg_info "Installing Dependencies"
-#$STD apt install -y python3-pip
+$STD apt install -y python3-pip
+$STD apt install -y git
+$STD mkdir -p /opt/tapeadmin
+$STD git clone https://github.com/tofkamp/PASTA.git /opt/tapeadmin
 #$STD pip install -r requirements.txt --break-system-packages
 #msg_ok "Installed Dependencies"
 
